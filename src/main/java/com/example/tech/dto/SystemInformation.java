@@ -1,7 +1,7 @@
 package com.example.tech.dto;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 public class SystemInformation implements Serializable {
 
@@ -13,7 +13,7 @@ public class SystemInformation implements Serializable {
 	private String hostAddress;
 	private String osName;
 	private String workingDirectoryName;
-	private Set<ProcessInfo> processList;
+	private List<ProcessInfo> processList;
 
 	public String getHostName() {
 		return hostName;
@@ -47,11 +47,11 @@ public class SystemInformation implements Serializable {
 		this.workingDirectoryName = workingDirectoryName;
 	}
 
-	public Set<ProcessInfo> getProcessList() {
+	public List<ProcessInfo> getProcessList() {
 		return processList;
 	}
 
-	public void setProcessList(Set<ProcessInfo> processList) {
+	public void setProcessList(List<ProcessInfo> processList) {
 		this.processList = processList;
 	}
 

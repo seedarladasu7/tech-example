@@ -3,8 +3,8 @@ package com.example.tech.service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -37,7 +37,7 @@ public class SystemInformationServiceImpl implements SystemInformationService {
 			String processEntry;
 			Process process = null;
 			String operatingSys = System.getProperty("os.name");
-			Set<ProcessInfo> pNameAndIdList = new HashSet<>();
+			List<ProcessInfo> pNameAndIdList = new ArrayList<>();
 
 			if (operatingSys.contains("Windows")) {
 				process = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe");
