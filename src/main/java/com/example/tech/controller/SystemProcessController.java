@@ -7,21 +7,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.tech.dto.SystemProcess;
-import com.example.tech.service.SystemProcessService;
+import com.example.tech.dto.SystemInformation;
+import com.example.tech.service.SystemInformationServiceImpl;
 
 @RestController
 @RequestMapping("/doc/v1/")
 public class SystemProcessController {
 	@Autowired
-	private SystemProcessService systemProcessService;
+	private SystemInformationServiceImpl systemProcessService;
 
 	@GetMapping("/processInfo")
-	public ResponseEntity<SystemProcess> getProcessInfo() {
+	public ResponseEntity<SystemInformation> getProcessInfo() {
 
-		SystemProcess sysProcess = systemProcessService.getSystemProcessInfo();
+		// List<SystemInformation> sysProcess=
+		// systemInformationService.getSystemProcessInfo();
+		SystemInformation sysProcess = systemProcessService.getSystemProcessInfo();
+		// return new ResponseEntity<List>(sysProcess, HttpStatus.OK);
+		ResponseEntity<SystemInformation> entity = new ResponseEntity<>(sysProcess, HttpStatus.OK);
 
-		return new ResponseEntity<>(sysProcess, HttpStatus.OK);
+		return entity;
 
 	}
 }
