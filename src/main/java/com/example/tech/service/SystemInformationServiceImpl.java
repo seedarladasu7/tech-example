@@ -34,29 +34,29 @@ public class SystemInformationServiceImpl implements SystemInformationService {
 			sysInfo.setOsName(osName);
 			sysInfo.setWorkingDirectoryName(workingDirectoryName);
 
-			String process;
-			Process p = null;
+			String processEntry;
+			Process process = null;
 			String operatingSys = System.getProperty("os.name");
 			Set<ProcessInfo> pNameAndIdList = new HashSet<>();
 
 			if (operatingSys.contains("Windows")) {
-				p = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe");
+				process = Runtime.getRuntime().exec(System.getenv("windir") + "\\system32\\" + "tasklist.exe");
 			} else if (operatingSys.contains("Linux")) {
-				p = Runtime.getRuntime().exec("ps -few");
+				process = Runtime.getRuntime().exec("ps -few");
 			}
 
-			BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-			while ((process = input.readLine()) != null) {
+			BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			while ((processEntry = input.readLine()) != null) {
 				// System.out.println("process: " + process);
 				ProcessInfo pInfo = new ProcessInfo();
 				String containsStr = "";
-				if (process.contains("Console")) {
+				if (processEntry.contains("Console")) {
 					containsStr = "Console";
-				} else if (process.contains("Services")) {
+				} else if (processEntry.contains("Services")) {
 					containsStr = "Services";
 				}
 
-				String processNameAndPId = process.split(" " + containsStr)[0];
+				String processNameAndPId = processEntry.split(" " + containsStr)[0];
 				System.out.println("processNameAndPId: " + processNameAndPId);
 
 				if (processNameAndPId != null && !processNameAndPId.equals("") && !processNameAndPId.equals(" ")
