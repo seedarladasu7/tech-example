@@ -47,20 +47,32 @@ public class SystemInformationServiceImpl implements SystemInformationService {
 
 			BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			while ((processEntry = input.readLine()) != null) {
-				// System.out.println("process: " + process);
+				
+				System.out.println(processEntry);
 				ProcessInfo pInfo = new ProcessInfo();
-				String containsStr = "";
-				if (processEntry.contains("Console")) {
-					containsStr = "Console";
-				} else if (processEntry.contains("Services")) {
-					containsStr = "Services";
-				}
+				
+				if (!processEntry.contains("Console")) {
+					continue;
+				} 
 
-				String processNameAndPId = processEntry.split(" " + containsStr)[0];
+				String processNameAndPId = processEntry.split(" Console")[0];
 				System.out.println("processNameAndPId: " + processNameAndPId);
+				
+				boolean isPIDExists = false;
 
 				if (processNameAndPId != null && !processNameAndPId.equals("") && !processNameAndPId.equals(" ")
 						&& !processNameAndPId.equals("Image") && !processNameAndPId.contains("=")) {
+					
+					char[] chars = processNameAndPId.toCharArray();
+					for (char c : chars) {
+						if (Character.isDigit(c)) {
+							isPIDExists = true;
+						}
+					}
+					
+					if(!isPIDExists) {
+						continue;
+					}
 					String pricessName = processNameAndPId.split(" ")[0];
 					String processId = processNameAndPId.substring(processNameAndPId.lastIndexOf(" "));
 
